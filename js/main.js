@@ -112,38 +112,89 @@
         });
     };
 
+/*___________________________________________________________*/
+
+$("#mc-form").submit((e) => {
+    e.preventDefault();
+    var emailInput = $("#mc-email").val();
+
+            // Check if the email input is empty
+            if (!emailInput.trim()) {
+                $(".subscribe-message").text("Email address is required.").addClass("error").fadeIn();
+                return; // Exit function if email is empty
+            }
+
+            // Validate the email using a regular expression
+            var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(emailInput)) {
+                $(".subscribe-message").text("Enter a valid Email Address.").addClass("error").fadeIn();
+                return; // Exit function if email is invalid
+            }
+    $(".subscribe-message").text("Submitting...").removeClass("success error"); 
+
+    $.ajax({
+        url: "https://script.google.com/macros/s/AKfycbwjpWVRD1SUhqXoe2W09oUEdJs5gxJkp8MOBsgJyFBdZ-ReJpsP1bkOLRWjNzogWRAuBw/exec",
+        data: $("#mc-form").serialize(),
+        method: "post",
+        success: function(response) {
+            $(".subscribe-message").text("We'll keep you informed once the website is launched.").addClass("success"); 
+            // console.log("Success class added");
+
+
+            $("input[type='submit']").val("Subscribed").addClass("set");
+            
+
+            
+            setTimeout(() => {
+                $(".subscribe-message").fadeOut(); 
+            }, 3000);
+        },
+        error: function(err) {
+            $(".subscribe-message").text("Something went wrong.").addClass("error");
+            console.log("Error class added");
+
+            // Keep the error message visible for 3 seconds
+            setTimeout(() => {
+                $(".subscribe-message").fadeOut();
+            }, 3000); 
+        }
+    });
+});
+
+// ______________________________________________________________
 
    /* AjaxChimp
     * ------------------------------------------------------ */
-    var ssAjaxChimp = function() {
+    // var ssAjaxChimp = function() {
         
-        $('#mc-form').ajaxChimp({
-            language: 'es',
-            url: cfg.mailChimpURL
-        });
+    //     $('#mc-form').ajaxChimp({
+    //         language: 'es',
+    //         url: cfg.mailChimpURL
+    //     });
 
-        // Mailchimp translation
-        //
-        //  Defaults:
-        //	 'submit': 'Submitting...',
-        //  0: 'We have sent you a confirmation email',
-        //  1: 'Please enter a value',
-        //  2: 'An email address must contain a single @',
-        //  3: 'The domain portion of the email address is invalid (the portion after the @: )',
-        //  4: 'The username portion of the email address is invalid (the portion before the @: )',
-        //  5: 'This email address looks fake or invalid. Please enter a real email address'
+    //     // Mailchimp translation
+    //     //
+    //     //  Defaults:
+    //     //	 'submit': 'Submitting...',
+    //     //  0: 'We have sent you a confirmation email',
+    //     //  1: 'Please enter a value',
+    //     //  2: 'An email address must contain a single @',
+    //     //  3: 'The domain portion of the email address is invalid (the portion after the @: )',
+    //     //  4: 'The username portion of the email address is invalid (the portion before the @: )',
+    //     //  5: 'This email address looks fake or invalid. Please enter a real email address'
 
-        $.ajaxChimp.translations.es = {
-            'submit': 'Submitting...',
-            0: '<i class="fas fa-check"></i> We have sent you a confirmation email',
-            1: '<i class="fas fa-exclamation-triangle"></i> You must enter a valid e-mail address.',
-            2: '<i class="fas fa-exclamation-triangle"></i> E-mail address is not valid.',
-            3: '<i class="fas fa-exclamation-triangle"></i> E-mail address is not valid.',
-            4: '<i class="fas fa-exclamation-triangle"></i> E-mail address is not valid.',
-            5: '<i class="fas fa-exclamation-triangle"></i> E-mail address is not valid.'
-        }
-    };
+    //     $.ajaxChimp.translations.es = {
+    //         'submit': 'Submitting...',
+    //         0: '<i class="fas fa-check"></i> We have sent you a confirmation email',
+    //         1: '<i class="fas fa-exclamation-triangle"></i> You must enter a valid e-mail address.',
+    //         2: '<i class="fas fa-exclamation-triangle"></i> E-mail address is not valid.',
+    //         3: '<i class="fas fa-exclamation-triangle"></i> E-mail address is not valid.',
+    //         4: '<i class="fas fa-exclamation-triangle"></i> E-mail address is not valid.',
+    //         5: '<i class="fas fa-exclamation-triangle"></i> E-mail address is not valid.'
+    //     }
+    // };
 
+   
 
    /* initialize
     * ------------------------------------------------------ */
@@ -154,7 +205,7 @@
         ssSlickSlider();
         ssPlaceholder();
         ssFinalCountdown();
-        ssAjaxChimp();
+        // ssAjaxChimp();
 
     })();
 

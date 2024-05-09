@@ -1332,9 +1332,31 @@ background: linear-gradient(135deg, rgba(35,97,135,1) 0%, rgba(0,27,43,1) 100%);
   position: relative;
 }
 
+
+
+.home-content__subscribe input[type="email"],
+.home-content__subscribe .set {
+  width: 100%;
+  box-sizing: border-box; 
+  transition: all 0.5s ease-in-out !important; 
+} 
+
 #mc-form {
   width: 100%;
 }
+
+.subscribe-message { 
+  color: white;
+}
+
+.subscribe-message.success {
+  color: green !important;
+}
+
+.subscribe-message.error {
+  color: red !important;
+}
+
 
 #mc-form input[type="email"] {
   width: 100%;
@@ -1345,6 +1367,7 @@ background: linear-gradient(135deg, rgba(35,97,135,1) 0%, rgba(0,27,43,1) 100%);
   background: rgba(255, 255, 255, 0.05);
   color: #FFFFFF;
   margin-bottom: 1.8rem;
+
 }
 
 #mc-form input[type="email"]::-webkit-input-placeholder {
@@ -1378,6 +1401,7 @@ background: linear-gradient(135deg, rgba(35,97,135,1) 0%, rgba(0,27,43,1) 100%);
   position: absolute;
   top: 0;
   right: 0;
+
 }
 
 #mc-form label {
