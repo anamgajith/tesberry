@@ -139,11 +139,8 @@ $("#mc-form").submit((e) => {
         success: function(response) {
             $(".subscribe-message").text("We'll keep you informed once the website is launched.").addClass("success"); 
             // console.log("Success class added");
-            $("mc-email").val("");
-
+            $("#mc-email").val("")
             $("input[type='submit']").val("Subscribed").addClass("set");
-            
-
             
             setTimeout(() => {
                 $(".subscribe-message").fadeOut(); 
